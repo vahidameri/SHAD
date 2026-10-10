@@ -1,211 +1,224 @@
-# DESIGN.md — Visual system for the Shad landing page
+# DESIGN.md — Art direction for the Shad landing page
 
-> Version 3.0 · October 2026 · Read `BRIEF.md` first.
-> One idea, one system. Sections 2–7 define the system; inside it, compose freely. Section 8 (banned) and section 9 (foundations) are not negotiable.
-
----
-
-## 1. Principles
-
-1. **One idea, all the way.** The three dots and the wave (`BRIEF.md` §3) are the only graphic motif. No other decorative shapes, blobs, arcs, grids or textures.
-2. **The product is the picture.** The real Shad app inside one phone is the main visual. Everything else is type and space.
-3. **Calm is the luxury.** One focus per screen. Lots of air. Small, precise type. A page that breathes reads as premium; a crowded one reads as AI.
-4. **Unity over variety.** Same grid, same radii, same colors, same motion everywhere. Sections differ by composition, never by switching styles.
-5. **Craft is in the details**: optical alignment of Persian text, perfect spacing rhythm, crisp hairlines, a button that feels good to press, a dot that bounces with the right weight.
+> Version 2.0 · October 2026
+> This is an **art direction**, not a spec sheet. It tells you what the page should feel like, what world it comes from, and what level of craft is expected. It gives you building blocks and ideas. **You are the designer: compose, combine and push them.**
+> Only section 9 (Foundations that don't move) is fixed. Everything else is direction you may interpret, extend or improve, as long as the result is clearly better.
 
 ---
 
-## 2. Color
+## 1. The ambition
 
-A very small palette. Color is used with intent, mostly white space and ink, with green and yellow as the brand voice.
+Build a landing page that would sit comfortably next to the best app landing pages on Land-book, Mobbin or Awwwards, and **feels unmistakably like Shad**.
 
-| Token | Hex | Use |
+Bar to clear: if someone puts our page next to the references in `references/`, it must look like it came from the same tier of studio. Rich, layered, confident, polished down to the pixel — and still instantly clear about what to do (install Shad).
+
+The current page (`references/current-shad-ir.png`) is the opposite of what we want: flat, empty, pastel blobs, no product, no people, no life.
+
+---
+
+## 2. Reference study — what to take from each
+
+Open every image in `references/` and study it at full size before designing. Do not copy any of them. Extract the **craft**.
+
+| Reference | What makes it great | What we take |
 |---|---|---|
-| `--paper` | `#FFFFFF` | Page background |
-| `--mist` | `#F2F8F5` | The only tinted surface (FAQ, "also for", footer) |
-| `--ink` | `#1C1C1C` | Headlines and body (from the logo file) |
-| `--ink-2` | `#5A6662` | Secondary text (5.98:1 on white) |
-| `--line` | `#E3ECE8` | 1px hairlines and borders |
-| `--shad-green` | `#068F66` | Brand: the wave, logo, large shapes. White text on it only if ≥ 24px or ≥ 19px bold (4.09:1) |
-| `--green-deep` | `#057A57` | Buttons, links, the install section background (white text 5.35:1) |
-| `--green-press` | `#045E43` | Hover / pressed |
-| `--shad-yellow` | `#FFBA0C` | The three dots; the primary button **on green**; the lit-dot state. Never text or thin icons on white (1.71:1). Ink on yellow is 9.97:1 |
-| `--dot-off` | `#FFE3A1` | An unlit dot (story progress) |
+| `ref-1-momento-full-page` | Big centered hero with the phone as the hero object, flanked by **fanned, tilted cards**; two-tone two-line headlines (light line + strong line) on every section; small pill tags above headings; pastel "how it works" cards; alternating feature rows that pair phone screens with imagery; audience cards with overlay labels; immersive gradient final CTA with phone + floating UI chips | The fan composition, two-tone headlines, pill tags, pastel step cards, gradient CTA band with phone |
+| `ref-2-reel-hero-orbit` | Phone at center **rising out of concentric arcs**; product UI broken into **floating chips/cards** around it (live badge, stats, product cards, rating); clean centered type; logo marquee right under the hero | Phone-in-orbit + floating UI fragments as "proof"; logo strip under hero |
+| `ref-3-community-arcs-stats` | Stats placed **inside** concentric arcs with avatars and status chips riding the arcs — a living ecosystem diagram; pill tags with icons below | The **super-app ecosystem orbit**: Shad at the center, services riding the arcs, stats inside |
+| `ref-4-paylio-bento-faq` | Hero mixes a real photo with UI overlays; **bento grid** where each tile contains a real UI fragment (converter, transfer receipt), not just an icon; testimonial rows; split FAQ (title + help card on one side, accordion on the other) | Bento tiles that each *show* the feature working; split FAQ with support card |
+| `ref-5-mobit-feature-explorer` | Hand-held phone in concentric rings; stats row with big numerals; **interactive feature explorer**: list of features on one side, a live preview panel on the other that changes on select | Feature/audience explorer with live preview |
+| `ref-6-finto-grid-cta` | Disciplined grid with faint dashed column lines; bento of real UI fragments; deep green final CTA band; very clean footer | Grid discipline, deep green CTA band (fits our chalkboard green perfectly) |
 
-**Inside the phone only:** the app's own colors (subject cards lime `#8CD021`, teal `#489883`, cobalt `#3A4EED`, violet `#9471FE`; mint `#C7FFF3` selection; messenger blue `#0F7FF9`; red badges `#CD1E1E`). They appear because the app has them — never as page decoration.
-
-No gradients. No glows. No colored shadows. Light theme only for this round.
-
----
-
-## 3. Typography
-
-**Yekan Bakh** for everything (FaNum variant if available). Until its files are in `assets/fonts/`, use **Vazirmatn** as a stand-in. Stack: `"Yekan Bakh", "Vazirmatn", Tahoma, sans-serif`. Weights: **400, 500, 700, 800** only.
-
-Persian letterforms have a large visual size and tall ascenders and descenders. Latin-style display sizes look shouty in Persian. Use this scale (fluid between 360px and 1280px):
-
-| Role | Mobile | Desktop | Weight | Line-height |
-|---|---|---|---|---|
-| Display (hero H1) | 30–32px | 52–56px | 800 | 1.35 |
-| Section title (H2) | 24px | 36–40px | 700 | 1.45 |
-| Chapter title (H3) | 20px | 26–28px | 700 | 1.5 |
-| Lead | 16px | 18px | 400 | 1.9 |
-| Body | 15px | 16px | 400 | 1.9 |
-| Small / meta | 13px | 14px | 500 | 1.8 |
-| Button | 15px | 16px | 700 | 1 |
-
-- Line length for body: ≤ 60 characters (`max-width: 32rem`).
-- Headlines: single color (ink), single weight. `text-wrap: balance`.
-- Never letter-spacing on Persian. Never all-caps tricks. Persian digits. Preserve ZWNJ.
-- Optical check: Persian text sits visually higher in its line box; check vertical centering in buttons and adjust padding by eye.
+**Common DNA across all six (this is the quality bar):**
+1. The **product UI is the hero imagery** — real screens plus UI pieces lifted out and floated as cards around it.
+2. **Depth and layering**: phone in front, cards behind and around it, soft shadows, slight tilts, arcs/rings behind.
+3. **Generous whitespace**, huge confident headlines, very small supporting text.
+4. **Every section has a different composition** (fan, orbit, bento, split, explorer, band) — no two sections look alike, yet one system ties them together.
+5. **Small craft details everywhere**: pill tags with icons, status dots, avatar stacks, counters, check badges, micro-labels.
 
 ---
 
-## 4. Space, grid, shape
+## 3. The Shad world — where our visual language comes from
 
-**Grid.** Mobile: 4 columns, 20px side margins, 16px gutters. Desktop (≥1024px): 12 columns, 1200px container, 24px gutters. Every element snaps to it.
+Shad is not a utility app. It's a **super-app**: a whole school in a phone — classes, live lessons, digital textbooks, messenger, voice calls, events, games, search, video (Tamasha), films. Look at `assets/screens/home-light.png`: it's colorful, playful and dense with life.
 
-**Spacing.** 8px base: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 · 160. Section spacing: 96px mobile / 160px desktop. Inside a block, related items sit close (8–16px); unrelated groups are far apart (48px or more). Proximity, not boxes, creates groups.
+**The page must carry that super-app energy: a full, lively school day orbiting around one app.**
 
-**Alignment.** Text is start-aligned (right). The hero may center on mobile only if it composes better. Logical CSS properties throughout.
+### 3.1 Concept: «یک اپ، یک مدرسه کامل» — the whole school, in orbit
 
-**Radius family** (three values, used consistently):
-- `28px` — the phone's screen corners (and the phone body scales with it), the install panel
-- `16px` — buttons, inputs, small panels
-- `999px` — dots, badges
+The phone is the school. Around it, the life of the school moves: a math class going live, a teacher's message arriving, homework getting a check mark, a physics textbook card, an event trophy, an animation playing in Tamasha. Shad's three yellow dots are the sun these things orbit around.
 
-**Lines & depth.** Separation by space first, then 1px `--line` hairlines. No card boxes around text. One shadow on the whole page: under the phone, realistic and soft (`0 40px 80px -40px rgb(28 28 28 / .35)`), nothing else.
+This idea can drive the hero, the ecosystem section and the final CTA — but **how** you stage it is your call.
 
----
+### 3.2 Visual ingredients taken from the real app
 
-## 5. The dots & the wave
+| Ingredient from the app | Where it appears in the app | How to use it on the page |
+|---|---|---|
+| **Subject cards** — vivid color blocks with 3D school objects (books, telescope, globe) and a white "grade" pill | «آموزشی» row | The page's most Shad-specific asset. Fan them around the phone like Momento's photo cards; use them in bento tiles; use their colors as section accents |
+| **Service tiles** — rounded app tiles (شاد من، پیام‌رسان، تماشا، فیلم و سریال) with badges («جدید», a blue count) | Top row | Ecosystem orbit, super-app section, floating chips |
+| **Chalkboard banner** — green board with Tehran skyline in chalk | Hero banner | Texture/inspiration for the final CTA band or dark mode; the chalk-line skyline is a great "به وسعت ایران" motif |
+| **«مدرسه من» banner** — 3D school building, schoolbag, books | Promo banner | Imagery for "your school" moments |
+| **Mint selected state** (`#C7FFF3` fill + green border) | Selected tile, active nav | Active tabs, selected device card, highlights |
+| **Bottom nav** (خانه، رویدادها، پخش زنده، اعلانات، حساب من) | Bottom bar | Can be used as a recognizable UI fragment |
 
-Built from `assets/brand/icon-flat.svg` (viewBox 37.6 × 39.7):
-- Three yellow dots, each ≈ 28% of the mark's width; one on top in the center, two below on the sides.
-- The green wave below them.
+Pre-cut crops of these are in `assets/app-ui/` (light and dark). They are low-resolution crops from a phone screenshot — fine for small floating cards; for anything larger, **rebuild the UI in HTML/CSS** in the same style (this usually looks sharper and lets you animate it).
 
-Rules:
-- Use the real logo files for the logo. For the animated motif, use the exact dot and wave geometry from that SVG (copy the paths). Never redraw them freehand.
-- **Never more than three dots on screen.** They are characters, not decoration.
-- **No faces or limbs.** Personality comes from motion only.
-- States: `lit` (`--shad-yellow`), `off` (`--dot-off`). The wave is always `--shad-green`.
-- They appear in exactly three places:
-  1. **Hero:** the mark composed with the phone (e.g. the dots resting above the phone, the wave under it).
-  2. **Story:** a three-dot progress indicator beside the phone; chapter 1 lights the first dot, and so on. It shows the logo's arrangement (one top, two below).
-  3. **Install:** the dots settle onto the wave, and the full mark completes — the story is resolved.
+### 3.3 The UI-fragment kit (build this — it is the soul of the page)
 
----
+Build a small kit of HTML/CSS components that look like they were lifted straight out of the Shad app. They are illustrations of the product, used as floating cards, bento content and preview panels. Suggested pieces (content in `CONTENT.md` §6):
 
-## 6. The phone
+- **Live class card** — red «زنده» badge with pulsing dot, class name, teacher, stacked avatars, «۲۸ نفر آنلاین».
+- **Message bubble / notification** — teacher avatar, name, one-line message, time.
+- **Homework checklist** — 2–3 items, one getting checked.
+- **Subject card** — color block + 3D object + grade pill (use crops or rebuild).
+- **Digital textbook + رمزینه scan** — a book cover with a QR scanning line sweeping across it.
+- **Service tiles** — app-icon-like tiles with badges.
+- **Event / trophy chip** — «شاد رویداد».
+- **Grade/result chip** — e.g. «آزمون ادبیات — ۱۹٫۵».
+- **Stat chip** — big number + label.
+- **Search bar** — the Shadbin search with mic icon.
 
-- One modern phone, front-facing, upright (no tilt, no 3D perspective), built in CSS/SVG with a thin ink bezel and the 28px screen radius. The **same phone** appears in the hero and continues as the story phone.
-- Size: ~240px wide on mobile, ~300–320px on desktop.
-- **Screens.** Every screen must look like the real Shad app (`assets/screens/home-light.png` is the style source: its header, tiles, cards, bottom nav, fonts, colors).
-  - Hero: the real home screenshot (`home-light.webp`).
-  - Chapter 1, «یاد بگیر»: a class screen built in HTML in the app's style — e.g. the «آموزشی» subject row (real crops in `assets/app-ui/`), a class channel with the teacher's lesson video, a homework message with a sent file and a check mark, a grade.
-  - Chapter 2, «در ارتباط باش»: the chat list (class group, the teacher, the school's announcements channel) with unread badges; a new message arrives.
-  - Chapter 3, «کشف کن»: the home's service row (شاد من، پیام‌رسان، تماشا، فیلم و سریال) plus events / Tamasha content, in the app's style.
-- Screen transitions behave like the app itself (a short slide or cross-fade, 300–400ms).
-- Pick one moment of life per screen (a message arriving, a check appearing). Not more.
+Avatars: use simple, friendly initial circles in subject colors (no faces needed), or person photos if they are supplied later.
 
 ---
 
-## 7. Composition by block
+## 4. Color
 
-These describe intent and a recommended composition. You may compose differently if it's clearly better and stays inside this system.
+### 4.1 Brand (fixed values)
 
-**Header.** Thin and quiet: logo (start), the primary CTA (end). On desktop, 3 small anchor links between them. 64px tall. Transparent over the hero, white with a hairline after scrolling.
+| Name | Hex | Role |
+|---|---|---|
+| Shad Green | `#068F66` | Brand color. Large surfaces, logo, wave, highlights |
+| Shad Yellow | `#FFBA0C` | Joy and emphasis. The three dots, primary button on green, badges, glows |
+| Ink | `#1C1C1C` | Text (from the logo file) |
 
-**Hero.** Three things only: the message, the action, the product.
-```
-Mobile (360)                         Desktop (1440)
-┌──────────────────────┐             ┌───────────────────────────────────────────┐
-│ logo            [دریافت]│           │ logo        links                 [دریافت] │
-│                      │             │                                           │
-│ H1 (2 lines)         │             │   ● ● ●                 H1 (2 lines)      │
-│ lead (2–3 lines)     │             │   ┌──────┐              lead              │
-│ [██ primary CTA ███] │             │   │phone │              [primary] secondary│
-│ secondary link       │             │   │      │              small trust line  │
-│        ●             │             │ ~~│      │~~~~~~                          │
-│       ● ●            │             │ ██└──────┘███                             │
-│     ┌──────┐         │             └───────────────────────────────────────────┘
-│ ~~~~│phone │~~~~     │
-│ ████└──────┘████     │   (phone cropped by the fold; the wave in Shad Green behind its lower half)
-└──────────────────────┘
-```
-At 360×640 the H1 and the primary button are fully visible without scrolling.
+### 4.2 The super-app palette (sampled from the app)
 
-**Story (three chapters).** The heart of the page.
-- Desktop: the phone is sticky in the end column (left), vertically centered; the three-dot indicator next to it. The start column scrolls three chapters, each roughly one viewport tall: a small chapter number (۱، ۲، ۳), the H3, two lines of body, and 3–5 feature words as a quiet list. When a chapter is active, its dot lights and the phone's screen changes.
-- Mobile: the phone (smaller) stays pinned in the upper part of the viewport while each chapter's text passes beneath it; the dots sit beside the phone. If the viewport is short (< 640px) or reduced motion is on, fall back to a simple stack: chapter text, then its phone screen.
-- The section title above the story is a single quiet line (see `CONTENT.md`).
+Use these as **accents**, especially for subject cards, bento tiles, step cards, avatars and chips. They are what makes the page feel like Shad and not like a generic green brand.
 
-**Also for teachers & families.** On `--mist`. Two columns on desktop, stacked on mobile; each is a title + 2–3 short lines. No icons, no cards.
+| Name | Hex | From |
+|---|---|---|
+| Chalkboard | `#256243` | Chalkboard banner — deep sections, final CTA, dark mode base |
+| Mint | `#C7FFF3` | Selected state — highlights, active tabs, soft fills |
+| App background | `#F9F9F9` | App canvas — page background |
+| Math lime | `#8CD021` | Subject card |
+| History teal | `#489883` | Subject card |
+| Physics cobalt | `#3A4EED` | Subject card |
+| Social violet | `#9471FE` | Subject card |
+| Messenger blue | `#0F7FF9` | Messenger tile / count badge |
+| Live red | `#CD1E1E` | «جدید» / live badges |
 
-**Proof.** White. One confident sentence with the big number set in the text («بیش از ۳۴ میلیون نصب»), then a single row of the five partner logos in grayscale, evenly spaced. Nothing else.
+Use pale tints of these (8–15% on white) for pastel cards (as Momento's step cards). Soft gradients and glows are welcome — e.g. mint→white sky behind the hero, a warm yellow glow behind the phone, chalkboard→brand-green in the final CTA.
 
-**Install (the climax).** Full-bleed `--green-deep`. The dots settle onto the wave here. White H2, short lead.
-- A device switcher (Android / iPhone & iPad / Computer) as a segmented control, preselected to the visitor's device.
-- The active panel shows only what that device needs: Android → «دریافت از بازار» (yellow, primary), «دریافت از مایکت» (secondary), the direct APK link with version and size; iPhone → «ورود به شاد در آیفون» + the 4 add-to-home-screen steps; Computer → «ورود به نسخه وب شاد» + a QR code to install on a phone.
+### 4.3 Accessibility facts (measured — keep in mind)
 
-**FAQ.** On `--mist`. Title in the start column, accordion in the end columns (desktop); stacked on mobile. Hairline dividers, no boxes. Support phone under the title.
+- White text on Shad Green `#068F66` = **4.09:1** → fine for large text only. For buttons/links with white text use a darker green such as `#057A57` (5.35:1) / hover `#045E43`.
+- Yellow `#FFBA0C` on white = **1.71:1** → never for text or thin icons on light backgrounds. Ink on yellow = **9.97:1** ✅.
+- Check every subject-color pairing you use for text (white on lime `#8CD021` fails — use ink there).
 
-**Footer.** White, small, orderly: logo + one-line about, link groups, support phone (prominent), copyright.
+### 4.4 Dark mode
 
-**Mobile sticky bar.** After the hero CTA scrolls away: a slim bar with the app icon, «شاد، رایگان» and the platform button. Hidden while the install section is on screen.
+Optional but welcome. If you build it, base it on the **chalkboard** world (deep green, chalk-white text, glowing yellow dots), not on grey/black. Swap the logo (`logo-full-white.svg`) and screenshots (`*-dark`). Light mode is the priority and must be perfect first.
 
 ---
 
-## 8. Banned (these made round 1 look AI-made)
+## 5. Typography
 
-- Pill/eyebrow tags above headlines
-- Two-tone headlines, or one word highlighted in another color/weight
-- Floating UI chips or cards around the phone, outside the phone
-- Glows, blurs used as decoration, gradients, colored or stacked shadows
-- Concentric arcs, orbits, rings, blobs, confetti, sparkles
-- Bento grids, card grids of features, icons inside circles in rows
-- Stats bands with big numbers, count-up counters
-- Tilted or perspective phones, hands holding phones
-- Testimonials (we have no real ones)
-- Emojis, arrow characters appended to buttons, middle-dot (·) meta strings
-- Scroll-reveal fade-ups on every block
-- Any feature not listed in `CONTENT.md` §2 (especially رمزینه and حضور و غیاب)
+- **Typeface: Yekan Bakh** (FaNum variant if available) for everything. Until its files are in `assets/fonts/`, use **Vazirmatn** as a local stand-in. Font stack: `"Yekan Bakh", "Vazirmatn", Tahoma, sans-serif`.
+- Go **big and confident** on headlines, the way the references do. Suggested range: hero 44–48px on mobile, 72–88px on desktop; section headlines 30–34px mobile, 48–56px desktop. Body small and calm (15–17px). Find the exact scale by looking at your screenshots.
+- **Two-tone, two-line headlines** (from Momento): line 1 lighter in color and/or weight (e.g. muted grey-green, weight 300–400), line 2 strong (ink, weight 800–900). `CONTENT.md` writes headlines in this two-line form.
+- Persian needs more line-height than Latin (body ~1.8–1.9, display ~1.2–1.35). Never use letter-spacing on Persian text — it breaks letter joining.
+- Persian digits everywhere in copy. Numbers in stats can be the most expressive type on the page.
+- Small pill tags with an icon above section headlines are welcome (they're in all the references).
 
 ---
 
-## 9. Foundations (non-negotiable)
+## 6. Imagery
 
-1. `<html lang="fa" dir="rtl">`, logical CSS properties, mirrored directional icons.
-2. Mobile-first; flawless at 360–430px; no horizontal scroll from 320px.
-3. Brand hex values exact; logo files used as-is.
-4. Links, numbers, versions from `CONFIG` (`CONTENT.md` §1). No invented stats or claims.
-5. WCAG 2.2 AA contrast; visible keyboard focus; touch targets ≥ 44px; `prefers-reduced-motion` respected (static, complete page); meaningful `alt`; decorative SVG `aria-hidden`.
-6. No runtime requests to external domains (works on Iran's domestic network). Self-host fonts and any library.
-7. Fast on a mid-range Android: WebP images with dimensions, the hero image prioritized, everything else lazy; motion only on `transform`/`opacity`.
+Four image sources, in this order of priority:
 
----
-
-## 10. Motion language
-
-One language: **gentle spring physics**, like a small ball with a little weight.
-- Hero load (once, ≤ 1.2s): the phone fades up a few px; the three dots drop in one after another and land with a small bounce. Text and CTA are visible immediately.
-- Story: when a chapter activates, a dot hops from the previous position and lights up (≈ 450ms spring); the phone's screen transitions like the app does.
-- Install: the dots settle onto the wave (completing the mark) when the section enters.
-- UI: buttons press (scale .98), hover darkens; accordion and switcher animate height/position smoothly (200–250ms).
-- Nothing loops forever. Nothing moves without a reason. Reduced motion: final states, no movement.
+1. **Real app screens** (`assets/screens/`) inside a realistic, modern phone frame (built in CSS/SVG). The phone is the main hero object.
+2. **HTML/CSS UI fragments** in Shad's style (§3.3). Unlimited, sharp, animatable. Use them generously.
+3. **3D school-object illustrations** in the style the app already uses (books, schoolbag, telescope, globe, school building). Available now only inside the screenshot crops; the client may supply originals later.
+4. **Photography** of real Iranian students, teachers and families. Not supplied yet. Design the layout so that photo slots look good with a placeholder now and great with photos later (`assets/photos/` — see `CONTENT.md` §7 for art direction). Do not use stock photos from the internet.
 
 ---
 
-## 11. Asset map
+## 7. Composition ideas, section by section
+
+These are **starting points, not instructions**. Pick, combine, or do something better. Every section should have its own composition, like the references.
+
+**Hero** — the biggest design moment of the page. Some directions to explore:
+- *Orbit* (ref 2 + 3): centered two-line headline and CTAs, phone rising from the bottom out of concentric mint arcs, the yellow dots glowing like a sun behind it, UI fragments (live class, teacher message, homework check, stat chip) floating on the arcs.
+- *Subject fan* (ref 1): phone at center, the four subject cards (lime, teal, cobalt, violet) fanned and tilted on both sides of it like playing cards, chips floating in front.
+- A blend of the two, or your own idea.
+On mobile: stay centered and bold; phone + two peeking cards + one or two chips — rich but not cluttered. The primary CTA must be reachable without scrolling.
+
+**Partner strip** — directly under the hero: «همکاران شاد» with institution logos, as a calm row or slow marquee.
+
+**Super-app ecosystem** — the "whole school in one app" statement. Ref 3 is the model: Shad's mark at the center, service tiles and chips riding concentric arcs, the stats (+۳۴ میلیون…) set large inside the arcs. Could gently rotate or react to scroll.
+
+**How it works (3 steps)** — Momento-style pastel cards, each tinted with a different subject color, numbered (it's a real sequence), each with an icon tile or a tiny UI fragment.
+
+**Features** — a bento grid (ref 4, 6) or alternating rows (ref 1). Each tile *shows* the feature: the live class card, the homework checklist, the textbook with رمزینه scan line, the chat thread. Vary tile sizes; give the lead feature (کلاس و تکالیف) the biggest tile.
+
+**Who it's for** — an interactive explorer (ref 5): three audiences (دانش‌آموزان / معلم‌ها / خانواده‌ها) on one side; a phone or UI panel on the other that changes per audience. On mobile: segmented control on top, preview below. Photo cards (ref 1 "Built for Nightlife Culture") are a great alternative once photos exist.
+
+**Install on any device** — three platform cards (Android, iPhone, Computer). The visitor's own device is highlighted (mint selected state, «دستگاه شما» badge) and comes first. iPhone card includes the add-to-home-screen guide; computer card includes the QR code.
+
+**FAQ** — split layout (ref 4): headline + support card with the phone number on one side, accordion on the other. Stacks on mobile.
+
+**Final CTA** — an immersive band (ref 1, 6): chalkboard-to-green gradient, maybe the chalk Tehran skyline, the phone with floating chips, yellow primary button. This should feel like the hero's echo.
+
+**Footer** — clean and organized (ref 6), with the support number given prominence.
+
+**Mobile sticky CTA** — a slim bar that appears after the hero CTA scrolls away.
+
+---
+
+## 8. Motion & interaction
+
+Motion is part of the "خفن". Make the page feel alive — but every movement must be smooth, purposeful and cheap to run.
+
+Good candidates:
+- An orchestrated **hero entrance**: phone rises, cards fan out, chips pop in with a stagger, dots glow.
+- **Ambient float** on hero chips (slow, a few px, offset timings) and subtle **pointer/scroll parallax** on desktop.
+- **Logo marquee**, **count-up** stats when they enter the viewport, a slow **orbit** drift.
+- Living UI fragments: pulsing live dot, a message bubble typing in, a homework item ticking, the رمزینه scan line sweeping.
+- Tactile states on buttons and cards (hover lift, press). Smooth tab/explorer transitions, accordion height animation.
+- Tasteful scroll-reveal is fine — vary it per section rather than the same fade-up everywhere.
+
+Rules: animate `transform`/`opacity` (and filters sparingly); respect `prefers-reduced-motion` (show final states, stop loops); never delay the CTA; no jank on a mid-range Android phone.
+
+---
+
+## 9. Foundations that don't move
+
+These are the only hard rules.
+
+1. **Persian, RTL**: `<html lang="fa" dir="rtl">`, logical CSS properties, mirrored directional icons, no letter-spacing on Persian text, ZWNJ preserved.
+2. **Mobile-first and flawless at 360–430px.** Most visitors are students on Android phones. Desktop must be equally impressive, but mobile is never a shrunken desktop. No horizontal scroll from 320px up.
+3. **Brand**: the brand hex values in §4.1 are exact. Use the logo SVG files as-is; never redraw or recolor the logo.
+4. **The job**: the platform-appropriate install/open action (`CONTENT.md` §3) is always the clearest thing on screen. All richness serves it, never competes with it.
+5. **Facts come from `CONFIG`**: links, numbers, versions, phone number. Never invent stats, claims or testimonials.
+6. **Accessibility**: WCAG 2.2 AA contrast for all text, visible keyboard focus, touch targets ≥ 44px, meaningful `alt`, decorative elements `aria-hidden`, works without motion.
+7. **Self-contained**: no runtime requests to external domains (no CDNs, Google Fonts or third-party scripts) — the page must work on Iran's domestic network. Libraries installed locally and bundled/inlined are fine.
+8. **Performance**: hero assets optimized (WebP, explicit dimensions, priority loading); everything below the fold lazy. Smooth on a mid-range phone.
+
+---
+
+## 10. Brand asset map
 
 | File | Use |
 |---|---|
-| `assets/brand/logo-full-color.svg` | The logo (header, footer) |
-| `assets/brand/logo-full-white.svg` | Logo on the green install section if needed |
-| `assets/brand/icon-flat.svg` | Source of the dots & wave geometry; favicon; sticky-bar icon |
-| `assets/screens/home-light.{webp,png}` | Real home screen (hero phone), 824×1834 |
-| `assets/app-ui/*-light.png` | Real crops for building chapter screens (subject cards, service tiles, search bar, bottom nav, banners) |
-| `assets/partners/*.svg` | Partner logo placeholders (same filenames will be replaced) |
-| `assets/fonts/` | Yekan Bakh here when supplied; Vazirmatn stand-in |
-| `references/quality-bar/` | Finish-quality references only (see the README there) |
-| `references/current-shad-ir.png` | The page we're replacing |
+| `assets/brand/logo-full-color.svg` | Logo on light backgrounds |
+| `assets/brand/logo-full-white.svg` | Logo on dark / green backgrounds |
+| `assets/brand/logo-full-black.svg` | Monochrome only |
+| `assets/brand/icon-flat.svg` | App mark (three dots + wave) — favicon, sticky bar, ecosystem center, app-icon tiles |
+| `assets/brand/icon-outlined.svg` | App mark with outline — playful uses |
+| `assets/screens/home-{light,dark}.{webp,png}` | Real app home screen (824×1834) |
+| `assets/app-ui/*-{light,dark}.png` | Crops of app UI pieces (subject cards, service tiles, banners, search, bottom nav) |
+| `assets/partners/*.svg` | Placeholder partner logos — real files will replace them with the same names |
+| `assets/photos/` | Empty — future photography |
+| `assets/fonts/` | Yekan Bakh goes here; Vazirmatn as stand-in until then |
+| `references/` | The six reference pages + the current shad.ir |
