@@ -1,40 +1,35 @@
-# CONTENT.md — Shad download landing page (shad.ir)
+# CONTENT.md — Story, copy and data for the Shad landing page
 
-> Version 0.2 · October 2026
-> This file is the **single source of truth for page structure and all copy**.
-> Companion files: `DESIGN.md` (visual system) · `PROMPT.md` (build instructions)
-
----
-
-## 0. Rules for the builder
-
-1. **Use the Persian copy verbatim.** Do not rewrite, shorten, translate or add copy. If a slot has no copy, leave an HTML comment `<!-- COPY MISSING -->` instead of inventing text.
-2. **Never change numbers.** All stats, versions and phone numbers come from `CONFIG` (section 2). They are placeholders the client will update.
-3. **Section order is fixed** (section 4). Mobile/desktop differences are stated per section.
-4. **Source tags.** Every section and item is tagged:
-   - `existing` — content that exists on the current shad.ir.
-   - `new` — content added to improve the page. It is real, usable copy, but the client may swap it later. Mark each `new` block with `data-source="new"` on its wrapper so it can be found and replaced easily.
-5. `{{path}}` means "read from `CONFIG`". Never hard-code these values in markup.
-6. All digits in copy are already Persian (۰–۹). Keep them as typed. Do not convert to Latin digits. URLs stay Latin.
-7. Wrap brand and product names that must not be machine-translated in `<span translate="no">`: شاد, بازار, مایکت, Safari, APK.
+> Version 2.0 · October 2026
+> Companion files: `DESIGN.md` (art direction) · `PROMPT.md` (how to work)
 
 ---
 
-## 1. Page goal (context for design decisions)
+## 0. How to use this file
 
-| Item | Definition |
+- **Facts are locked** (section 2): links, numbers, version, phone. Read them from a `CONFIG` object; never invent new stats, claims, quotes or testimonials.
+- **Copy is a strong draft, not a cage.** You may tighten, shorten, split or re-rhythm any line so it works in the layout, as long as the meaning stays and the Persian is natural and correct. You may write extra microcopy (labels, chips, UI-fragment text, aria labels) in the same voice.
+- **Section order is the recommended story** (section 4). You may merge, split or reorder sections if the page gets clearly better — keep the narrative arc.
+- Headlines are written as **two lines** for the two-tone treatment: `line 1` (light) / `line 2` (strong). Several options are given where useful — pick the best for your composition.
+- All digits in Persian copy are Persian (۰–۹). Preserve ZWNJ (نیم‌فاصله) exactly. Wrap brand names in `translate="no"`.
+- Sections marked `new` are additions beyond the current shad.ir; add `data-source="new"` on their wrapper so the client can find them.
+
+---
+
+## 1. The story in one breath
+
+Shad is not "an app download". It's **a whole school in one app** — and 34 million people already use it. The page should make a student think «همه‌چیز مدرسه‌ام اینجاست», make a parent think «رسمی و امن است», make a teacher think «کلاسم را ساده می‌کند» — and make all three press the right install button within seconds.
+
+| | |
 |---|---|
-| Page type | Download & activation landing page, not a corporate "about" page |
-| User's job | "Install Shad on this device with no hassle and get into my class." |
-| Primary action | The platform-appropriate download / open button |
-| Primary audience | Students and their families, mostly on Android phones |
-| Secondary audience | Teachers and school staff (phone + desktop) |
-| Tertiary audience | Institutions, press (mostly desktop) |
-| 5-second test | A first-time visitor must understand: (1) Shad is the free school & class app, (2) which button to press |
+| Page job | Get each visitor to the right install/open action for their device |
+| Audiences | Students & families (mostly Android phones) → teachers & school staff → institutions & press |
+| Feeling | The excitement of the first day of school + the trust of an official national platform |
+| Voice | Warm, clear, confident. Friendly to a teenager, credible to a parent. Address the reader as «شما». No slang, no bureaucratic tone. |
 
 ---
 
-## 2. CONFIG (single object at the top of the script)
+## 2. CONFIG — locked facts
 
 ```js
 const CONFIG = {
@@ -42,396 +37,209 @@ const CONFIG = {
     bazaar:   "https://cafebazaar.ir/app/ir.medu.shad",
     myket:    "https://myket.ir/app/ir.medu.shad",
     apk:      "https://shad.ir/static/apk/Shad_v3_8_2.apk",
-    pwa:      "https://my.shad.ir/",   // iPhone/iPad (PWA) — same URL as web
-    web:      "https://my.shad.ir/",
-    landing:  "https://shad.ir/",      // QR code target on desktop
-    privacy:  "#",                     // placeholder
-    terms:    "#",                     // placeholder
-    campaign: "#"                      // placeholder
+    pwa:      "https://my.shad.ir/",   // iPhone / iPad (web app)
+    web:      "https://my.shad.ir/",   // desktop web version
+    landing:  "https://shad.ir/",      // QR code target
+    privacy:  "#", terms: "#", campaign: "#"   // placeholders
   },
-  apk: {
-    version: "۳.۸.۲",
-    size:    "۴۵ مگابایت",             // placeholder
-    minOs:   "اندروید ۵ به بالا"        // placeholder
-  },
-  support: {
-    phoneDisplay: "۰۲۱-۴۳۰۸۱",
-    phoneHref:    "tel:+982143081"
-  },
-  stats: [                              // existing numbers from shad.ir
+  apk:      { version: "۳.۸.۲", size: "۴۵ مگابایت", minOs: "اندروید ۵ به بالا" }, // size/minOs are placeholders
+  support:  { phoneDisplay: "۰۲۱-۴۳۰۸۱", phoneHref: "tel:+982143081" },
+  stats: [                                   // from current shad.ir
     { value: "+۳۴", unit: "میلیون",  label: "نصب یکتا" },
     { value: "+۸۷", unit: "میلیارد", label: "پیام ارسال‌شده" },
     { value: "+۱۲", unit: "میلیارد", label: "فایل جابه‌جاشده" }
   ],
-  activeUsers: {                        // existing, from shad.ir footer
-    daily: "۱۲ میلیون", weekly: "۱۵ میلیون", monthly: "۲۰ میلیون"
-  },
-  campaign: {                           // existing banner, as an optional slot
-    enabled: true,
-    text: "انیمیشن «ببعی قهرمان» در شاد رایگان شد",
-    linkText: "تماشا کنید"
-  },
+  activeUsers: { daily: "۱۲ میلیون", weekly: "۱۵ میلیون", monthly: "۲۰ میلیون" }, // peak, from shad.ir
+  campaign: { enabled: true, text: "انیمیشن «ببعی قهرمان» در شاد رایگان شد", linkText: "تماشا کنید" },
   year: "۱۴۰۵"
 };
 ```
 
 ---
 
-## 3. Voice & copy rules
+## 3. The smart CTA (behavior that matters everywhere)
 
-- Tone: warm, clear, trustworthy. Friendly for teenagers, credible for parents and teachers. Never childish, never bureaucratic.
-- Address the reader as «شما» with short, active verbs («نصب کنید»، «وارد شوید»). No slang.
-- Headlines: max ~8 words. One idea per sentence.
-- Persian punctuation: «» quotes, «،» comma, «؛» semicolon. Use the zero-width non-joiner (ZWNJ, U+200C) where the copy has it (e.g. «می‌شود»، «دانش‌آموز») — preserve it exactly.
-- Button labels say exactly what happens («دریافت از بازار», not «کلیک کنید»).
+Detect the platform and lead with the right action. Every CTA area on the page (header, hero, sticky bar, final CTA) follows this.
 
----
+| Platform | Primary | Secondary | Extra |
+|---|---|---|---|
+| **Android** | «دریافت از بازار» → bazaar | «دریافت از مایکت» → myket | Text link «دانلود مستقیم فایل نصبی (APK)» + version and size |
+| **iPhone / iPad** | «ورود به شاد در آیفون» → pwa | — | «بدون نیاز به اپ‌استور؛ شاد را به صفحه اصلی گوشی اضافه کنید.» + link to the iPhone guide |
+| **Desktop** | «ورود به نسخه وب شاد» → web | — | QR card: «نصب روی گوشی» / «این کد را با دوربین گوشی اسکن کنید.» |
+| **Unknown / no JS** | Show Bazaar, iPhone and Web side by side | | |
 
-## 4. Information architecture
-
-```
-[0]  Campaign bar             existing   optional, dismissible
-[1]  Header                   new
-[2]  Hero + smart CTA         existing+new
-[3]  Trust: partners + stats  existing
-[4]  Core features (4)        existing (rewritten)
-[5]  More in Shad             existing
-[6]  Who it's for (tabs)      new
-[7]  Get started in 3 steps   new
-[8]  All install options      existing+new
-[9]  FAQ                      new
-[10] Final CTA                new
-[11] Footer                   existing+new
-[*]  Sticky CTA bar           new        mobile only
-```
-
-Narrative logic: what do I do (hero) → why trust it (3) → what do I get (4–6) → how do I start (7–8) → what if I get stuck (9) → do it now (10).
+Always available near the hero CTA: «دستگاه دیگری دارید؟ همه روش‌های نصب» → install section.
 
 ---
 
-## 5. Section content
+## 4. The story, section by section
 
-### [0] Campaign bar — `#campaign` · existing
+### [0] Campaign bar — existing (optional)
+Slim dismissible bar for the current campaign: `{{campaign.text}}` + `{{campaign.linkText}}`. Must never overpower the hero (on the current site it does).
 
-- Purpose: a controlled slot for current campaigns, so they never sit above the brand or break the hero (the current site's banner is cropped and dominates the page).
-- Shown only when `CONFIG.campaign.enabled` is true.
-- Content: `{{campaign.text}}` + link `{{campaign.linkText}}` → `{{links.campaign}}`.
-- Close button, `aria-label="بستن اطلاعیه"`. Dismissal is remembered for the session.
-- Must fit on one line at 360px; truncate with ellipsis rather than wrap.
+### [1] Header — new
+Logo · «قابلیت‌ها» · «راهنمای نصب» · «سؤالات متداول» · «پشتیبانی» · secondary «ورود به نسخه وب» · primary «دریافت شاد». On mobile: logo + compact «دریافت» + menu.
 
----
-
-### [1] Header — `<header>` · new
-
-| Element | Content |
-|---|---|
-| Skip link (first focusable element) | «پرش به محتوای اصلی» → `#main` |
-| Logo | Full Shad logo, links to top. `alt="شاد، مدرسه‌ای به وسعت ایران"` |
-| Nav (≥1024px) | «قابلیت‌ها» → `#features` · «راهنمای نصب» → `#install` · «سؤالات متداول» → `#faq` · «پشتیبانی» → `#support` |
-| Secondary action (≥1024px) | «ورود به نسخه وب» → `{{links.web}}` |
-| Primary action (≥1024px) | «دریافت شاد» → scrolls to `#install` |
-| Mobile (<1024px) | Logo + compact primary button «دریافت» (platform-aware, see Hero) + menu button (`aria-label` «باز کردن منو» / «بستن منو») |
-| Mobile menu | The 4 nav links + «ورود به نسخه وب» |
-| Theme toggle | Icon button, `aria-label="تغییر حالت روشن و تاریک"` |
-
----
-
-### [2] Hero — `#hero` · existing + new
-
-**H1:**
-> کلاس، کتاب و معلم؛ همه یک‌جا در شاد
+### [2] Hero — existing + new
+**Headline options (line 1 / line 2):**
+1. «مدرسه‌ای به وسعت ایران» / «در گوشی شما»
+2. «کلاس، کتاب و معلم» / «همه در یک اپ»
+3. «یک اپ،» / «یک مدرسه کامل»
 
 **Subheading:**
-> بزرگ‌ترین اپلیکیشن آموزشی ایران؛ کلاس آنلاین، کتاب درسی دیجیتال و ارتباط با معلم و مدرسه، برای دانش‌آموزان، معلم‌ها و خانواده‌ها.
+> کلاس آنلاین، کتاب درسی دیجیتال، پیام‌رسان و هرچه برای درس و مدرسه لازم دارید؛ رایگان، برای دانش‌آموزان، معلم‌ها و خانواده‌ها.
 
-**Smart CTA block.** Detect the platform and render exactly one of these states:
+**Trust micro-line (near CTA):** «رایگان، با بیش از ۳۴ میلیون نصب»
+**Optional pill above headline:** «بزرگ‌ترین اپلیکیشن آموزشی ایران»
+**CTA:** smart CTA (§3).
+**Visual:** see `DESIGN.md` §7 — phone + subject cards + floating UI fragments (§6).
 
-**State A: Android**
+### [3] Partners — existing
+Label: «همکاران شاد»
+Logos: وزارت آموزش و پرورش · وزارت ارتباطات و فناوری اطلاعات · مرکز ملی فضای مجازی · همراه اول · پلیس فتا
 
-| Role | Copy | Target |
+### [4] Super-app ecosystem — existing (stats) + new (framing)
+**Pill:** «سوپراپلیکیشن شاد»
+**Headline:** «همه‌چیز مدرسه،» / «در یک اپلیکیشن»
+**Text:** «از کلاس و تکلیف تا پیام‌رسان، کتاب، رویداد و سرگرمی؛ شاد همه زندگی مدرسه را یک‌جا جمع کرده است.»
+**Stats:** `CONFIG.stats` (value + unit on one line, label below).
+**Services on the orbit** (use names + icons; tiles like the app):
+شاد من · پیام‌رسان · کلاس و تکالیف · پخش زنده · گفت‌وگوی صوتی · رمزینه‌خوان · نمونه تدریس‌ها · شادبین · شادبوم · شاد رویداد · تماشا · فیلم و سریال
+
+### [5] How it works — new
+**Pill:** «چطور شروع کنم؟»
+**Headline:** «از نصب تا کلاس،» / «فقط سه قدم»
+
+| # | Title | Text |
 |---|---|---|
-| Primary button | «دریافت از بازار» | `{{links.bazaar}}` |
-| Secondary button | «دریافت از مایکت» | `{{links.myket}}` |
-| Text link | «دانلود مستقیم فایل نصبی (APK)» | `{{links.apk}}` |
-| Meta under link | «نسخه {{apk.version}}، {{apk.size}}» | — |
+| ۱ | «نصب کنید» | «شاد را از بازار یا مایکت دریافت کنید؛ در آیفون، نسخه وب را به صفحه اصلی اضافه کنید.» |
+| ۲ | «ثبت‌نام کنید» | «با شماره موبایل ثبت‌نام کنید و کد تأیید پیامکی را وارد کنید.» |
+| ۳ | «وارد کلاس شوید» | «نقش خود را انتخاب کنید و به کلاس و مدرسه‌تان بپیوندید.» |
 
-**State B: iPhone / iPad**
+### [6] Features — existing (rewritten)
+**Pill:** «قابلیت‌ها»
+**Headline:** «هرچه برای درس لازم است،» / «همین‌جاست»
 
-| Role | Copy | Target |
+| Feature | Product name | Copy |
 |---|---|---|
-| Primary button | «ورود به شاد در آیفون» | `{{links.pwa}}` |
-| Helper text | «بدون نیاز به اپ‌استور؛ شاد را به صفحه اصلی گوشی اضافه کنید.» | — |
-| Text link | «راهنمای نصب روی آیفون» | `#install-ios` (and open that guide) |
+| **کلاس و تکالیف** (lead) | سامانه مدیریت یادگیری | «کلاس مجازی، تکلیف و آزمون در یک‌جا؛ ساخته‌شده برای آموزش و یادگیری معلم‌ها و دانش‌آموزان.» |
+| **کلاس زنده** | پخش زنده | «کلاس تصویری زنده در کانال‌ها و گروه‌ها، با امکان مرور درس و برگزاری جلسه.» |
+| **کتاب درسی دیجیتال** | رمزینه‌خوان | «نسخه دیجیتال کتاب‌های درسی همه مقاطع؛ رمزینه کتاب را اسکن کنید و به محتوای آموزشی برسید.» |
+| **گفت‌وگو با معلم و مدرسه** | گفت‌وگوی صوتی | «پیام، کانال و تماس صوتی گروهی؛ برای کلاس مجازی و ارتباط هرروزه با مدرسه.» |
+| **نمونه تدریس‌ها** | — | «محتوای آموزشی همه درس‌ها، از پیش‌دبستانی تا دوازدهم.» |
+| **شادبین** | — | «جست‌وجوی سریع، هدفمند و پاک برای اهالی مدرسه.» |
+| **شادبوم** | — | «بازی‌های آموزشی و سرگرمی سالم.» |
+| **شاد رویداد** | — | «رویدادهای پرورشی و فرهنگی در مقیاس ملی.» |
 
-**State C: Desktop**
+### [7] Who it's for — new
+**Pill:** «برای همه اهالی مدرسه»
+**Headline:** «یک اپ،» / «برای همه اهالی مدرسه»
 
-| Role | Copy | Target |
-|---|---|---|
-| Primary button | «ورود به نسخه وب شاد» | `{{links.web}}` |
-| QR card title | «نصب روی گوشی» | — |
-| QR card text | «این کد را با دوربین گوشی اسکن کنید.» | QR encodes `{{links.landing}}` |
-
-**Fallback (no JS / unknown platform):** show three equal buttons: «دریافت از بازار», «ورود به شاد در آیفون», «ورود به نسخه وب شاد».
-
-**Below the CTA block (all states):**
-- Link: «دستگاه دیگری دارید؟ همه روش‌های نصب» → `#install`
-- Trust line: «رایگان، با بیش از ۳۴ میلیون نصب»
-
-**Hero visual:** the real app home screen in a phone frame. Light theme → `home-light`, dark theme → `home-dark`. `alt="صفحه اصلی اپلیکیشن شاد"`.
-
-**Order:**
-- Mobile: H1 → subheading → CTA block → link + trust line → phone visual (top portion visible, cropped at the bottom by the section edge).
-- Desktop: text + CTA in the start column (right side, RTL), phone visual in the end column (left side).
-- H1 and the primary button must be visible without scrolling at 360×640.
-
----
-
-### [3] Trust — `#trust` · existing
-
-**Visually hidden H2 (screen readers only):** «شاد در یک نگاه»
-
-**Partner logos.** Small heading:
-> همکاران شاد
-
-1. وزارت آموزش و پرورش
-2. وزارت ارتباطات و فناوری اطلاعات
-3. مرکز ملی فضای مجازی
-4. همراه اول
-5. پلیس فتا
-
-Each logo has `alt` = the institution's full name above. Files are placeholders (see `DESIGN.md`).
-
-**Stats** from `{{stats}}`. Render the value and unit together on one line (e.g. «+۳۴ میلیون») and the label beneath. Never split value and unit across lines.
-
----
-
-### [4] Core features — `#features` · existing (rewritten)
-
-**H2:**
-> هرچه برای درس و مدرسه لازم دارید
-
-**Lead:**
-> از کلاس زنده تا کتاب درسی، همه در یک اپلیکیشن.
-
-Four features, in priority order. Feature 1 is the lead feature and gets more space on desktop.
-
-**1. کلاس و تکالیف** — product label: «سامانه مدیریت یادگیری»
-> کلاس مجازی، تکلیف و آزمون در یک‌جا؛ طراحی‌شده برای نیازهای آموزش و یادگیری معلم‌ها و دانش‌آموزان.
-
-**2. کلاس زنده** — product label: «پخش زنده»
-> کلاس تصویری زنده در کانال‌ها و گروه‌ها، با امکان مرور درس و برگزاری جلسه.
-
-**3. کتاب درسی دیجیتال** — product label: «رمزینه‌خوان»
-> نسخه دیجیتال کتاب‌های درسی همه مقاطع؛ رمزینه‌های کتاب را اسکن کنید و به محتوای آموزشی برسید.
-
-**4. گفت‌وگو با معلم و مدرسه** — product label: «گفت‌وگوی صوتی»
-> پیام، کانال و تماس صوتی گروهی؛ برای کلاس مجازی و ارتباط روزانه با مدرسه.
-
-Each feature: icon (or screenshot) + title (H3) + product label (small, muted) + text. Features are not links.
-
----
-
-### [5] More in Shad — `#more` · existing
-
-**H3:**
-> و بیشتر در شاد
-
-| Name | One-line description |
-|---|---|
-| نمونه تدریس‌ها | محتوای آموزشی همه درس‌ها، از پیش‌دبستانی تا دوازدهم |
-| شادبین | جست‌وجوی سریع، هدفمند و پاک برای اهالی مدرسه |
-| شادبوم | بازی‌های آموزشی و سرگرمی سالم |
-| شاد رویداد | رویدادهای پرورشی و فرهنگی در مقیاس ملی |
-
-Mobile: two-column grid. Desktop: one row of four.
-
----
-
-### [6] Who it's for — `#audiences` · new
-
-**H2:**
-> برای همه اهالی مدرسه
-
-Tabs, default = first tab. On mobile, render as a full-width segmented control.
-
-**Tab 1: «دانش‌آموزان»**
-- Title: «همه درس‌ها، همیشه همراه شما»
+**«دانش‌آموزان»** — «همه درس‌ها، همیشه همراه شما»
 - «در کلاس زنده شرکت کنید و تکلیف‌ها را همان‌جا تحویل دهید.»
 - «کتاب‌های درسی و محتوای آموزشی را هر وقت خواستید مرور کنید.»
 - «با معلم و هم‌کلاسی‌ها در گروه کلاس در ارتباط باشید.»
 
-**Tab 2: «معلم‌ها»**
-- Title: «کلاستان را ساده‌تر اداره کنید»
+**«معلم‌ها»** — «کلاستان را ساده‌تر اداره کنید»
 - «کلاس زنده برگزار کنید و جلسه‌ها را برای مرور در دسترس بگذارید.»
 - «تکلیف و آزمون بدهید و پاسخ‌ها را یک‌جا ببینید.»
 - «با دانش‌آموزان و خانواده‌ها در کانال کلاس در ارتباط باشید.»
 
-**Tab 3: «خانواده‌ها»**
-- Title: «در جریان درس فرزندتان باشید»
+**«خانواده‌ها»** — «در جریان درس فرزندتان باشید»
 - «اطلاعیه‌های مدرسه و کلاس را مستقیم دریافت کنید.»
 - «از تکلیف‌ها و برنامه کلاس فرزندتان باخبر شوید.»
 - «فضایی آموزشی و امن برای فرزندتان.»
 
-**CTA under tabs:** «دریافت شاد» → platform-aware primary action.
+### [8] Install on any device — existing + new
+**Pill:** «نصب شاد»
+**Headline:** «روی هر دستگاهی،» / «شاد همراه شماست»
 
----
-
-### [7] Get started — `#get-started` · new
-
-**H2:**
-> در سه قدم وارد کلاس شوید
-
-This is a real sequence, so numbered markers are appropriate.
-
-| Step | Title | Text |
-|---|---|---|
-| ۱ | نصب کنید | «شاد را از بازار یا مایکت دریافت کنید. در آیفون، نسخه وب را به صفحه اصلی اضافه کنید.» |
-| ۲ | ثبت‌نام کنید | «با شماره موبایل ثبت‌نام کنید و کد تأیید پیامکی را وارد کنید.» |
-| ۳ | به کلاس بپیوندید | «نقش خود را انتخاب کنید و وارد کلاس و مدرسه‌تان شوید.» |
-
----
-
-### [8] All install options — `#install` · existing + new
-
-**H2:**
-> شاد را روی دستگاه خود نصب کنید
-
-**Lead:**
-> روی هر گوشی و کامپیوتری در دسترس است.
-
-Three panels. The panel matching the visitor's platform comes first and carries the badge «دستگاه شما».
-
-**Android — `#install-android`**
-- Title: «اندروید»
-- Buttons: «دریافت از بازار» · «دریافت از مایکت»
-- Link: «دانلود مستقیم فایل نصبی (APK)»
-- Meta (three separate items, not a dot-joined string): «نسخه {{apk.version}}» / «{{apk.size}}» / «{{apk.minOs}}»
-- Note: «با نصب از بازار یا مایکت، شاد خودکار به‌روز می‌شود.»
-
-**iPhone & iPad — `#install-ios`**
-- Title: «آیفون و آیپد»
-- Button: «ورود به شاد در آیفون» → `{{links.pwa}}`
-- Guide title: «افزودن شاد به صفحه اصلی آیفون»
-- Steps (ordered list):
+- **«اندروید»** — «دریافت از بازار» · «دریافت از مایکت» · «دانلود مستقیم فایل نصبی (APK)» · version / size / minimum Android · note: «با نصب از بازار یا مایکت، شاد خودکار به‌روز می‌شود.»
+- **«آیفون و آیپد»** — «ورود به شاد در آیفون» · guide «افزودن شاد به صفحه اصلی آیفون»:
   1. «آدرس my.shad.ir را در مرورگر Safari باز کنید.»
   2. «دکمه اشتراک‌گذاری (مربع با فلش رو به بالا) را بزنید.»
   3. «گزینه «Add to Home Screen» یا «افزودن به صفحه اصلی» را انتخاب کنید.»
   4. «دکمه «Add» را بزنید؛ آیکون شاد روی صفحه اصلی ظاهر می‌شود.»
-- Guide is expanded by default on iOS, collapsed (disclosure) elsewhere.
+- **«کامپیوتر و لپ‌تاپ»** — «ورود به نسخه وب شاد» · «بدون نصب، در هر مرورگری.» · QR: «برای نصب روی گوشی، کد را اسکن کنید.»
+- Badge on the visitor's own device: «دستگاه شما»
 
-**Desktop — `#install-desktop`**
-- Title: «کامپیوتر و لپ‌تاپ»
-- Button: «ورود به نسخه وب شاد» → `{{links.web}}`
-- Text: «بدون نصب، در هر مرورگری. برای نصب روی گوشی، کد را اسکن کنید.»
-- QR code → `{{links.landing}}` (shown only at ≥1024px).
+### [9] FAQ — new
+**Pill:** «سؤالات متداول»
+**Headline:** «سؤالی دارید؟» / «جواب‌ها اینجاست»
+**Support card:** «هنوز سؤال دارید؟» · «کارشناسان پشتیبانی شاد پاسخ‌گوی شما هستند.» · `{{support.phoneDisplay}}`
 
----
+1. «استفاده از شاد هزینه دارد؟» — «نه. نصب و استفاده از شاد رایگان است.»
+2. «چطور شاد را روی آیفون نصب کنم؟» — «شاد در آیفون از طریق نسخه وب در دسترس است. my.shad.ir را در Safari باز کنید، دکمه اشتراک‌گذاری را بزنید و «افزودن به صفحه اصلی» را انتخاب کنید.»
+3. «از بازار نصب کنم، مایکت یا فایل مستقیم؟» — «فرقی ندارد؛ هر سه همان اپلیکیشن رسمی شاد است. نصب از بازار یا مایکت بهتر است، چون شاد خودکار به‌روز می‌شود.»
+4. «گوشی اجازه نصب فایل APK را نمی‌دهد. چه کنم؟» — «در تنظیمات گوشی، اجازه نصب از منابع ناشناس را برای مرورگر یا مدیر فایل فعال کنید و دوباره فایل را باز کنید. فایل را فقط از سایت رسمی شاد دریافت کنید.»
+5. «چطور شاد را به‌روزرسانی کنم؟» — «اگر از بازار یا مایکت نصب کرده‌اید، از همان‌جا به‌روزرسانی کنید؛ در غیر این صورت آخرین نسخه را از همین صفحه دریافت کنید.»
+6. «کد تأیید پیامکی برایم نمی‌آید.» — «چند دقیقه صبر کنید و شماره موبایل را بررسی کنید. اگر باز هم پیامک نرسید، با پشتیبانی شاد تماس بگیرید.»
+7. «کلاس یا مدرسه‌ام را در شاد پیدا نمی‌کنم.» — «عضویت در کلاس‌ها از طرف مدرسه انجام می‌شود. از معلم یا مدیر مدرسه بخواهید عضویت شما را بررسی کند.»
+8. «روی کامپیوتر هم می‌شود از شاد استفاده کرد؟» — «بله. نسخه وب شاد در my.shad.ir بدون نصب و در هر مرورگری در دسترس است.»
 
-### [9] FAQ — `#faq` · new
+### [10] Final CTA — new
+**Headline options:** «کلاس شما در شاد» / «منتظر شماست» — or — «همین حالا» / «به شاد بپیوندید»
+**Text:** «به میلیون‌ها دانش‌آموز، معلم و خانواده در سراسر ایران بپیوندید.»
+**CTA:** smart CTA (§3).
 
-**H2:**
-> سؤالات متداول
+### [11] Footer — existing + new
+- **About** (existing): «پلتفرمی که بزرگ‌ترین زیست‌بوم آموزشی کشور شد» — «شاد، مدرسه‌ای به وسعت ایران و بزرگ‌ترین اپلیکیشن آموزشی کشور است. تاکنون بیش از ۳۴ میلیون نصب یکتا داشته و در بیشینه حالت، {{activeUsers.daily}} کاربر فعال روزانه، {{activeUsers.weekly}} کاربر فعال هفتگی و {{activeUsers.monthly}} کاربر فعال ماهانه داشته است.»
+- **Get Shad**: «اندروید از بازار» · «اندروید از مایکت» · «فایل نصبی APK» · «آیفون و آیپد» · «نسخه وب»
+- **Help**: «راهنمای نصب» · «سؤالات متداول» · «حریم خصوصی» · «شرایط استفاده»
+- **Support** (existing): «پشتیبانی تلفنی» · `{{support.phoneDisplay}}` (render LTR) · «تنها شماره رسمی مرکز پاسخ‌گویی شاد» · new: «پشتیبانی شاد هرگز کد تأیید پیامکی شما را نمی‌خواهد.»
+- «© {{year}} شاد. همه حقوق محفوظ است.»
 
-All collapsed by default. Also output as `FAQPage` JSON-LD.
-
-1. **«استفاده از شاد هزینه دارد؟»**
-   «نه. نصب و استفاده از شاد رایگان است.»
-
-2. **«چطور شاد را روی آیفون نصب کنم؟»**
-   «شاد در آیفون از طریق نسخه وب در دسترس است. my.shad.ir را در Safari باز کنید، دکمه اشتراک‌گذاری را بزنید و «افزودن به صفحه اصلی» را انتخاب کنید.» + link «راهنمای تصویری» → `#install-ios`
-
-3. **«از بازار نصب کنم، مایکت یا فایل مستقیم؟»**
-   «فرقی ندارد؛ هر سه همان اپلیکیشن رسمی شاد است. نصب از بازار یا مایکت بهتر است، چون شاد خودکار به‌روز می‌شود. اگر به این فروشگاه‌ها دسترسی ندارید، فایل نصبی را مستقیم دانلود کنید.»
-
-4. **«گوشی اجازه نصب فایل APK را نمی‌دهد. چه کنم؟»**
-   «در تنظیمات گوشی، اجازه نصب برنامه از منابع ناشناس را برای مرورگر یا مدیر فایل فعال کنید و دوباره فایل را باز کنید. فایل نصبی را فقط از سایت رسمی شاد دریافت کنید.»
-
-5. **«چطور شاد را به‌روزرسانی کنم؟»**
-   «اگر از بازار یا مایکت نصب کرده‌اید، از همان‌جا به‌روزرسانی کنید. در غیر این صورت، آخرین نسخه را از همین صفحه دریافت و نصب کنید.»
-
-6. **«کد تأیید پیامکی برایم نمی‌آید.»**
-   «چند دقیقه صبر کنید و درست بودن شماره موبایل را بررسی کنید. اگر باز هم پیامک نرسید، با پشتیبانی شاد تماس بگیرید.»
-
-7. **«کلاس یا مدرسه‌ام را در شاد پیدا نمی‌کنم.»**
-   «عضویت در کلاس‌ها از طرف مدرسه انجام می‌شود. از معلم یا مدیر مدرسه بخواهید عضویت شما را بررسی کند.»
-
-8. **«روی کامپیوتر هم می‌شود از شاد استفاده کرد؟»**
-   «بله. نسخه وب شاد در my.shad.ir بدون نصب و در هر مرورگری در دسترس است.»
+### [*] Mobile sticky bar — new
+Shad icon + «شاد، رایگان» + platform button («دریافت از بازار» on Android, «ورود به شاد» on iPhone).
 
 ---
 
-### [10] Final CTA — `#final-cta` · new
-
-**H2:**
-> کلاس شما در شاد منتظر است
-
-**Text:**
-> همین حالا شاد را دریافت کنید و به میلیون‌ها دانش‌آموز و معلم بپیوندید.
-
-**CTA:** the same smart CTA block as the hero (states A/B/C), compact version, without the QR card.
-
----
-
-### [11] Footer — `<footer>` · existing + new
-
-**Column 1: About** · existing
-- Logo
-- Heading: «پلتفرمی که بزرگ‌ترین زیست‌بوم آموزشی کشور شد»
-- Text:
-  > شاد، مدرسه‌ای به وسعت ایران و بزرگ‌ترین اپلیکیشن آموزشی کشور است. تاکنون بیش از ۳۴ میلیون نصب یکتا داشته و در بیشینه حالت، {{activeUsers.daily}} کاربر فعال روزانه، {{activeUsers.weekly}} کاربر فعال هفتگی و {{activeUsers.monthly}} کاربر فعال ماهانه داشته است.
-
-**Column 2: Get Shad** · existing
-- «اندروید از بازار» · «اندروید از مایکت» · «فایل نصبی APK» · «آیفون و آیپد» · «نسخه وب»
-
-**Column 3: Help** · new
-- «راهنمای نصب» → `#install` · «سؤالات متداول» → `#faq` · «حریم خصوصی» → `{{links.privacy}}` · «شرایط استفاده» → `{{links.terms}}`
-
-**Column 4: Support — `#support`** · existing + new
-- Heading: «پشتیبانی تلفنی»
-- Phone: `{{support.phoneDisplay}}` as a `tel:` link. Wrap the number in `<span dir="ltr">`.
-- Text: «تنها شماره رسمی مرکز پاسخ‌گویی شاد» (existing)
-- Note: «پشتیبانی شاد هرگز کد تأیید پیامکی شما را نمی‌خواهد.» (new)
-
-**Bottom row:** «© {{year}} شاد. همه حقوق محفوظ است.»
-
-Mobile: columns stack; columns 2 and 3 become disclosures.
-
----
-
-### [*] Sticky CTA bar — mobile only · new
-
-- Appears when the hero CTA block leaves the viewport; hides while the final CTA or footer is visible.
-- Content: Shad app icon + «شاد، رایگان» + platform button:
-  - Android: «دریافت از بازار»
-  - iOS: «ورود به شاد»
-- Never shown at ≥1024px.
-
----
-
-## 6. System microcopy
+## 5. Microcopy & SEO
 
 | Context | Copy |
 |---|---|
 | Skip link | «پرش به محتوای اصلی» |
-| Menu button | «باز کردن منو» / «بستن منو» |
+| Menu | «باز کردن منو» / «بستن منو» |
 | Close campaign | «بستن اطلاعیه» |
 | Theme toggle | «تغییر حالت روشن و تاریک» |
-| Current-device badge | «دستگاه شما» |
-| External link hint (visually hidden) | «(در صفحه جدید باز می‌شود)» |
 | APK download started (aria-live) | «دانلود فایل نصبی شاد شروع شد.» |
 | QR alt | «کد QR برای باز کردن صفحه دریافت شاد روی گوشی» |
+| `<title>` | «دانلود شاد؛ اپلیکیشن آموزشی دانش‌آموزان ایران» |
+| meta description | «شاد، بزرگ‌ترین اپلیکیشن آموزشی ایران: کلاس آنلاین، کتاب درسی دیجیتال و ارتباط با معلم و مدرسه. دریافت رایگان برای اندروید، آیفون و نسخه وب.» |
+| og:title | «شاد، مدرسه‌ای به وسعت ایران» |
+| JSON-LD | `MobileApplication` (Android, iOS, Web; price 0) + `FAQPage` |
 
 ---
 
-## 7. SEO & metadata
+## 6. UI-fragment content library
 
-| Field | Value |
+Illustrative in-app content for floating cards, bento tiles and preview panels. These are depictions of the product UI, not claims. Use, adapt or add more in the same spirit. Names are generic and fictional.
+
+| Fragment | Content |
 |---|---|
-| `html` | `lang="fa" dir="rtl"` |
-| `<title>` | «دانلود شاد؛ اپلیکیشن آموزشی دانش‌آموزان ایران» |
-| `meta description` | «شاد، بزرگ‌ترین اپلیکیشن آموزشی ایران: کلاس آنلاین، کتاب درسی دیجیتال و ارتباط با معلم و مدرسه. دریافت رایگان برای اندروید، آیفون و نسخه وب.» |
-| `og:title` | «شاد، مدرسه‌ای به وسعت ایران» |
-| `og:description` | same as meta description |
-| `og:image` | `assets/og-image.png` (placeholder path) |
-| `theme-color` | two tags, light and dark, values from `DESIGN.md` |
-| JSON-LD | `MobileApplication` (name, operatingSystem: Android, iOS, Web; offers price 0) + `FAQPage` from section 9 |
+| Live class | «زنده» badge · «ریاضی دهم» · «خانم رضایی» · «۲۸ نفر آنلاین» |
+| Teacher message | «آقای کریمی» · «تکلیف فصل سوم را تا شنبه بفرستید.» · «۱۰:۳۲» |
+| Class group | «گروه کلاس هفتم ب» · «۳ پیام جدید» |
+| Homework | «تکلیف‌های امروز»: «حل تمرین صفحه ۴۲ ✓» · «خلاصه درس تاریخ ✓» · «آزمایش علوم» |
+| Submitted | «تکلیف علوم تحویل شد» |
+| Result | «آزمون ادبیات» · «نمره: ۱۹٫۵» |
+| Textbook | «فیزیک دوازدهم» · «رمزینه اسکن شد» · «۶ ویدیوی آموزشی» |
+| Subject cards (as in app) | «ریاضیات / دهم ریاضی» · «تاریخ / یازدهم تجربی» · «فیزیک / دوازدهم تجربی» · «جامعه‌شناسی / دوازدهم انسانی» |
+| Event | «شاد رویداد» · «مسابقه کتاب‌خوانی» · «ثبت‌نام باز است» |
+| Tamasha | «تماشا» · «انیمیشن ببعی قهرمان» |
+| Search | «در شادبین جست‌وجو کنید» |
+| Attendance | «حضور شما در کلاس ثبت شد» |
+| Voice call | «تماس صوتی گروهی» · «۱۲ نفر» |
+| Stat chip | «۱۲ میلیون کاربر فعال روزانه» (from CONFIG) |
+| Service tile badges | «جدید» · count «۲» |
+
+---
+
+## 7. Photography brief (for later — design the slots now)
+
+If/when photos are added to `assets/photos/`:
+- Real Iranian students, teachers and parents; authentic, joyful, natural light. Not Western stock.
+- Context-appropriate: school uniforms; girls with مقنعه in school settings; respectful family scenes at home.
+- «به وسعت ایران»: show diversity of regions and settings — big city, small town, village school.
+- Moments: a student on a phone in a live class, a teacher teaching to a phone/laptop, a parent and child checking homework together, friends looking at a phone and laughing.
+- Suggested slots: hero side cards (2), audience explorer (3, one per audience), final CTA (1).
